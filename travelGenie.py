@@ -65,13 +65,13 @@ create_top_menu()
 
 st.title('Travel Genie')
 
-key = st.sidebar.text_input('OpenAI API Key')
+key = st.sidebar.text_input('Google Gemini API Key')
+st.sidebar.info("You can get your free API key from Google from https://aistudio.google.com/app/u/1/apikey?pli=1")
 
 def generate_response(input_text):
-    genai.configure(api_key = 'AIzaSyA_qAfI4KKLGm7yKSogJFwtX1fd5nE3_bw')
+    genai.configure(api_key = key)
     model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content(input_text)
-    print(response.text)
     st.info(response.text)
 
 with open('worldcities.csv', 'r', encoding='utf-8') as csvfile:
@@ -86,10 +86,13 @@ with st.form('my_form'):
 	end_date = st.date_input("Choose your end Date:", value="default_value_today", min_value=datetime.datetime.now(), format="DD/MM/YYYY")
 	haclass = st.selectbox("Choose your Type of Travel:", ['Economy','Business','First Class'])
 	
-	text = "Give me a Travel Plan to go from " + location + " to " + destination + " between " + str(start_date) + " and " + str(end_date) + " also show the budget according to " + haclass
+	text = "Give me a Travel Plan to go from " + location + " to " + destination + " between " + str(start_date) + " and " + str(end_date) + " also show the budget in the currency of starting location along with rupees in brackets according to " + haclass
 	submitted = st.form_submit_button('Submit')
 	if submitted:
-		generate_response(text)		
+		try:
+			generate_response(text)	
+		except:
+			st.error("Enter valid API key!", icon="⚠️")	
 
 # Define sections for navigation
 st.write("<div id='home'></div>", unsafe_allow_html=True)  # Home section anchor
@@ -106,4 +109,3 @@ st.write("Aditya Mittal: Aditya.Mittal@xyz.com")
 st.write("Srijan Gupta: Srijan.Gupta@xyz.com")
 st.write("Ridwan Umar: Ridwan.Umar@xyz.com")
 st.write("Siddharth Tripathi: Siddharth.Tripathi@xyz.com")
-
