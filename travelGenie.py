@@ -82,8 +82,10 @@ with open('worldcities.csv', 'r', encoding='utf-8') as csvfile:
 with st.form('my_form'):  
 	location = st.selectbox("Choose your Starting Location:", predefined_locations)
 	destination = st.selectbox("Choose your Destination:", predefined_locations)
-	start_date = st.date_input("Choose your start Date:", value="default_value_today", min_value=datetime.datetime.now(), format="DD/MM/YYYY")
-	end_date = st.date_input("Choose your end Date:", value="default_value_today", min_value=datetime.datetime.now(), format="DD/MM/YYYY")
+	#start_date = st.date_input("Choose your start Date:", value="default_value_today", min_value=datetime.datetime.now(), format="DD/MM/YYYY")
+	#end_date = st.date_input("Choose your end Date:", value="default_value_today", min_value=datetime.datetime.now(), format="DD/MM/YYYY")
+	start_date = st.date_input("Choose your start Date:", value=datetime.date.today(), min_value=datetime.date.today())
+	end_date = st.date_input("Choose your end Date:", value=datetime.date.today(), min_value=start_date)
 	haclass = st.selectbox("Choose your Type of Travel:", ['Economy','Business','First Class'])
 	
 	text = "Give me a Travel Plan to go from " + location + " to " + destination + " between " + str(start_date) + " and " + str(end_date) + " also show the budget in the currency of starting location along with rupees in brackets according to " + haclass
@@ -109,3 +111,4 @@ st.write("Aditya Mittal: Aditya.Mittal@xyz.com")
 st.write("Srijan Gupta: Srijan.Gupta@xyz.com")
 st.write("Ridwan Umar: Ridwan.Umar@xyz.com")
 st.write("Siddharth Tripathi: Siddharth.Tripathi@xyz.com")
+
